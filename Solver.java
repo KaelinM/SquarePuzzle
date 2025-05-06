@@ -1,6 +1,6 @@
 public class Solver{
 
-    private piece[] allPieces = new piece[36];
+    public piece[] allPieces = new piece[36];
 
     public Solver(){
         allPieces[0] = new Piece(4, 5, 3, 2, 2);
@@ -54,7 +54,8 @@ public class Solver{
                 return match;
             if(((a - orig) == 0.9) && orig == (int)(match.getFish(2)) && match.getFish(2) == 0.1)
                 return match;
-        }     
+        }
+        return null;  
     }
 
     private int z;
@@ -72,7 +73,8 @@ public class Solver{
         botB = false;
 
     }
-
+    //To add --> check for if the center is the same before adding it
+    // maybe should be in find match method
     public void runIt(piece x){
         // 0 - left
         // 1 - right
@@ -92,6 +94,8 @@ public class Solver{
         else{
             for(int i = 0; i < 4; i++){
                 piece m = findMatch(x.getFish(i));
+                if(m == null)
+                    break;
                 if(i==0 && leftB == false)
                     curX-=1;
                 if(i==1 && rightB == false)
@@ -105,6 +109,15 @@ public class Solver{
             }
         }
         
+    }
+
+    public void printIt(){
+        for(int row = 0; row < board.length; row ++){
+            for(int col = 0; col < board[0].length; col++){
+                // need to figure out how to print each side of the piece
+                // along with the piece - print blank in all corners??
+            }
+        }
     }
 
     
