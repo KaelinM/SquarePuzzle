@@ -41,7 +41,48 @@ public class Solver{
         allPieces[35] = new Piece(16, 13, 15, 12, 15);
     }
     
-    private double[][] board = new double[6][5];
+    private double[][] board = new double[6][6];
+
+    public piece findMatch(double a){
+        int orig = (int)(a);
+        for(piece match: allPieces){
+            if(((a - orig) == 0.4) && orig == (int)(match.getFish(1)) && match.getFish(1) == 0.6)
+                return match;
+            if(((a - orig) == 0.6) && orig == (int)(match.getFish(1)) && match.getFish(1) == 0.4)
+                return match;
+            if(((a - orig) == 0.1) && orig == (int)(match.getFish(2)) && match.getFish(2) == 0.9)
+                return match;
+            if(((a - orig) == 0.9) && orig == (int)(match.getFish(2)) && match.getFish(2) == 0.1)
+                return match;
+        }     
+    }
+
+    private int z = 0;
+    public void runIt(piece x){
+        int curX = 3;
+        int curY = 3;
+        // 0 - left
+        // 1 - right
+        // 2 - up
+        // 3 - down
+        if(z = 0)
+            board[curX][curY] = x;
+        else{
+            for(int i = 0; i < 4; i++){
+                piece m = findMatch(x.getFish(i));
+                if(i==0)
+                    curX-=1;
+                if(i==1)
+                    curX+=1;
+                if(i==2)
+                    curY+=1;
+                if(i==3)
+                    curY-=1;
+                board[curX][curY] = m;
+
+            }}
+        
+    }
 
     
     
