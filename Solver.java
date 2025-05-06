@@ -57,30 +57,53 @@ public class Solver{
         }     
     }
 
-    private int z = 0;
+    private int z;
+    private int curX;
+    private int curY;
+    private boolean leftB, rightB, topB, botB;
+
+    public void initialize(){
+        z = 0;
+        curX = 3;
+        curY = 3;
+        leftB = false;
+        rightB = false;
+        topB = false;
+        botB = false;
+
+    }
+
     public void runIt(piece x){
-        int curX = 3;
-        int curY = 3;
         // 0 - left
         // 1 - right
         // 2 - up
         // 3 - down
-        if(z = 0)
+        if(z = 0){
             board[curX][curY] = x;
+            z++;}
+        else if(curX < 0)
+            leftB =true;
+        else if(curX > 5)
+            rightB = true;
+        else if(curY < 0)
+            topB = true;
+        else if(curY > 0)
+            botB = true;
         else{
             for(int i = 0; i < 4; i++){
                 piece m = findMatch(x.getFish(i));
-                if(i==0)
+                if(i==0 && leftB == false)
                     curX-=1;
-                if(i==1)
+                if(i==1 && rightB == false)
                     curX+=1;
-                if(i==2)
-                    curY+=1;
-                if(i==3)
+                if(i==2 && topB == false)
                     curY-=1;
+                if(i==3 && botB == false)
+                    curY+=1;
                 board[curX][curY] = m;
-
-            }}
+                runIt(m);
+            }
+        }
         
     }
 
