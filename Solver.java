@@ -132,17 +132,26 @@ public class Solver{
                 for(int col = 0; col < board[0].length; col++){
                     // need to figure out how to print each side of the piece
                     // along with the piece - print blank in all corners??
-                    if(i == 0){
-                        x+= "| " + board[row][col].getFish(2) + " |";
-                    }
+                    if(board[row][col] == null)
+                        x+= "| n n n |";
+                    else if(i == 0)
+                        x +=  "| " + board[row][col].getFish(2) + " |";
+                    else if(i == 1)
+                        x += "|" + board[row][col].getFish(0) + " " + board[row][col].getFish(4) + " "
+                         + board[row][col].getFish(1) + "|";
+                    else if(i ==2)
+                        x += "| " + board[row][col].getFish(3) + " |";
+
                 }
+                System.out.println(x);
+                x= "";
             }
         }
     }
 
     
     
-    }}
+    }
 
 
 
