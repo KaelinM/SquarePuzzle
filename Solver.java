@@ -1,6 +1,6 @@
 public class Solver{
 
-    public piece[] allPieces = new piece[36];
+    public Piece[] allPieces = new Piece[36];
 
     public Solver(){
         allPieces[0] = new Piece(4, 5, 3, 2, 2);
@@ -41,11 +41,11 @@ public class Solver{
         allPieces[35] = new Piece(16, 13, 15, 12, 15);
     }
     
-    private double[][] board = new double[6][6];
+    private Piece[][] board = new Piece[6][6];
 
-    public piece findMatch(double a){
+    public Piece findMatch(double a){
         int orig = (int)(a);
-        for(piece match: allPieces){
+        for(Piece match: allPieces){
             if(((a - orig) == 0.4) && orig == (int)(match.getFish(1)) && match.getFish(1) == 0.6)
                 return match;
             if(((a - orig) == 0.6) && orig == (int)(match.getFish(1)) && match.getFish(1) == 0.4)
@@ -56,6 +56,15 @@ public class Solver{
                 return match;
         }
         return null;  
+    }
+
+    public boolean centerFree(Piece pc,int row, int col){
+        boolean clear = true;
+        for(int i = 0; i < board.length; i++){
+            if(pc.getFish(4) == board[row][i].getFish(4) || pc.getFish(4) == board[i][col].getFish(4))
+                clear = false;
+        }
+        return clear;
     }
 
     private int z;
@@ -73,14 +82,13 @@ public class Solver{
         botB = false;
 
     }
-    //To add --> check for if the center is the same before adding it
-    // maybe should be in find match method
-    public void runIt(piece x){
+
+    public void runIt(Piece x){
         // 0 - left
         // 1 - right
         // 2 - up
         // 3 - down
-        if(z = 0){
+        if(z == 0){
             board[curX][curY] = x;
             z++;}
         else if(curX < 0)
@@ -93,7 +101,9 @@ public class Solver{
             botB = true;
         else{
             for(int i = 0; i < 4; i++){
-                piece m = findMatch(x.getFish(i));
+                Piece m = findMatch(x.getFish(i));
+                while(!centerFree(m, curX, curY))
+                    m = findMatch(x.getFish(i));
                 if(m == null)
                     break;
                 if(i==0 && leftB == false)
@@ -111,15 +121,45 @@ public class Solver{
         
     }
 
+    public Piece getPiece(int g){
+        return allPieces[g];
+    }
+
+    private String x = "";
     public void printIt(){
         for(int row = 0; row < board.length; row ++){
-            for(int col = 0; col < board[0].length; col++){
-                // need to figure out how to print each side of the piece
-                // along with the piece - print blank in all corners??
+            for(int i = 0; i < 3; i++){
+                for(int col = 0; col < board[0].length; col++){
+                    // need to figure out how to print each side of the piece
+                    // along with the piece - print blank in all corners??
+                    if(i == 0){
+                        x+= "| " + board[row][col].getFish(2) + " |";
+                    }
+                }
             }
         }
     }
 
     
     
-}
+    }}
+
+
+
+
+
+                
+
+                
+
+
+                // if(board[row][col] == null){
+                //     x += "|   |\n|   |\n|   |";
+                //     //System.out.print(y);
+                // }else{
+                //     x += "|" + " " + board[row][col].getFish(2) + " " + "|\n"
+                //     + "|" + board[row][col].getFish(0) + board[row][col].getFish(4) + board[row][col].getFish(1) + "|\n"
+                //     + "|" + " " + board[row][col].getFish(3) + "|";
+                //     //System.out.print(x);}
+            //}
+           // System.out.println(x);
