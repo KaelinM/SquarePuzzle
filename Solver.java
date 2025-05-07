@@ -148,27 +148,4 @@ public class Solver{
             }
         }
     }
-
-    
-    
-    }
-
-
-
-
-
-                
-
-                
-
-
-                // if(board[row][col] == null){
-                //     x += "|   |\n|   |\n|   |";
-                //     //System.out.print(y);
-                // }else{
-                //     x += "|" + " " + board[row][col].getFish(2) + " " + "|\n"
-                //     + "|" + board[row][col].getFish(0) + board[row][col].getFish(4) + board[row][col].getFish(1) + "|\n"
-                //     + "|" + " " + board[row][col].getFish(3) + "|";
-                //     //System.out.print(x);}
-            //}
-           // System.out.println(x);
+}
